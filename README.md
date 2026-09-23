@@ -35,7 +35,15 @@ npm rebuild puppeteer   # télécharge Chromium pour le rendu Mermaid
 echo 'graph LR; A-->B' > /tmp/t.mmd && npx mmdc -i /tmp/t.mmd -o /tmp/t.svg && echo OK
 ```
 
-Puis installer [pi-interactive-subagents](https://github.com/amosblomqvist/pi-interactive-subagents) (voir son README). Sans lui, pas de researcher ni de visuels générés, mais l'enseignement fonctionne.
+Subagents ([pi-interactive-subagents](https://github.com/amosblomqvist/pi-interactive-subagents), tmux uniquement ; installé dans la config globale de pi, donc à refaire sur chaque PC) :
+
+```bash
+pi install git:github.com/amosblomqvist/pi-interactive-subagents@main
+```
+
+Sans lui, pas de researcher ni de visuels générés, mais l'enseignement fonctionne. Ne pas utiliser l'extension subagent d'exemple fournie avec pi : les agents de `.pi/agents/` attendent les outils de celle-ci (`web_search`, `web_fetch`, `safe_bash`).
+
+Le researcher utilise `openrouter/z-ai/glm-5.3` : il faut une clé OpenRouter (`/login`), ou changer `model:` dans `.pi/agents/researcher.md`.
 
 Obsidian : « Ouvrir un dossier comme coffre » → le dossier du repo.
 
@@ -45,15 +53,10 @@ Obsidian : « Ouvrir un dossier comme coffre » → le dossier du repo.
 - `browser folder exists but the executable is missing` → `rm -rf ~/.cache/puppeteer` puis `npm rebuild puppeteer`
 - `error while loading shared libraries: xxx.so` → bibliothèque manquante, lister avec `ldd ~/.cache/puppeteer/chrome-headless-shell/*/chrome-headless-shell-linux64/chrome-headless-shell | grep "not found"`
 - Ubuntu < 24.04 : remplacer `libasound2t64` par `libasound2`
-- Ne pas lancer `npm audit fix`
-
-## Utilisation
-
-```bash
-cd ~/learn && git pull
-tmux
-pi
+- Ne pas lancer `
 ```
+
+Crée la session tmux `pi` (ou s'y rattache) et lance pi dedans. `Ctrl+b` puis `d` : se détacher sans arrêter pi. Quitter pi ferme la session.
 
 Dans pi :
 - `/login` (une seule fois) → Anthropic → clé API, stockée dans `auth.json` hors du repo
