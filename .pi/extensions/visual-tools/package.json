@@ -14,5 +14,8 @@
   },
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": "*"
+  },
+  "allowScripts": {
+    "puppeteer@25.3.0": true
   }
 }
